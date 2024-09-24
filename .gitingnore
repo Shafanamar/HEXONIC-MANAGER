@@ -1,4 +1,0 @@
-# Prevent environment file from being tracked by Git
-.env
-node_modules/
-
