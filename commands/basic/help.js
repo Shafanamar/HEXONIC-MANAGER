@@ -93,9 +93,9 @@ module.exports = {
                         `**Enabled Categories:** ${enabledCategoriesList.join(', ')}\n`+
                         `**Disabled Categories:** ${disabledCategoriesList.join(', ')}\n`,
                     ],
-                    image: "https://cdn.discordapp.com/attachments/1279306679787458561/1288152949524008991/Picsart_24-08-31_18-56-29-999.jpg?ex=66f4256b&is=66f2d3eb&hm=2292f44ac08620048546d1b18245c728fcf35c0278fd83df39b18621b2aada0a&",
+                    image: "https://cdn.discordapp.com/attachments/1279306679787458561/1287269267154145301/standard.gif?ex=66f3916d&is=66f23fed&hm=700f69e0c449931d5c79b0168080d468cba3ec7bd74d9573fa710dbad30973b2&92f44ac08620048546d1b18245c728fcf35c0278fd83df39b18621b2aada0a&",
                     color: "#3498db",
-                    thumbnail: "https://cdn.discordapp.com/attachments/1279306679787458561/1287269267154145301/standard.gif?ex=66f3916d&is=66f23fed&hm=700f69e0c449931d5c79b0168080d468cba3ec7bd74d9573fa710dbad30973b2&",
+                    thumbnail: "https://cdn.discordapp.com/attachments/1279306679787458561/1288152949524008991/Picsart_24-08-31_18-56-29-999.jpg?ex=66f4256b&is=66f2d3eb&hm=229",
                     author: {
                         name: 'All In One',
                         iconURL: "https://cdn.discordapp.com/attachments/1246408947708072027/1255167194036437093/1558-zerotwo-exciteddance.gif?ex=667c250a&is=667ad38a&hm=09e6db36fd79436eb57de466589f21ca947329edd69b8e591d0f6586b89df296&",
