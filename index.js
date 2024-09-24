@@ -1,67 +1,34 @@
-const { Client, GatewayIntentBits } = require('discord.js');
-const axios = require('axios');
+const client = require('./main');
+require('./bot');
+require('./shiva');
 
-// Initialize the Discord client
-const client = new Client({ intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMessages, GatewayIntentBits.MessageContent] });
+const loadEventHandlers = () => {
+    console.log('\x1b[36m[ WELCOME ]\x1b[0m', '\x1b[32mWelcome System Active ✅\x1b[0m');
+    const guildMemberAddHandler = require('./events/guildMemberAdd');
+    guildMemberAddHandler(client);
+    console.log('\x1b[36m[ TICKET ]\x1b[0m', '\x1b[32mTicket System Active ✅\x1b[0m');
+    const ticketHandler = require('./events/ticketHandler');
+    ticketHandler(client);
+    console.log('\x1b[36m[ VOICE CHANNEL ]\x1b[0m', '\x1b[32mVoice Channel System Active ✅\x1b[0m');
+    const voiceChannelHandler = require('./events/voiceChannelHandler');
+    voiceChannelHandler(client);
+    console.log('\x1b[36m[ GIVEAWAY ]\x1b[0m', '\x1b[32mGiveaway System Active ✅\x1b[0m');
+    const giveawayHandler = require('./events/giveaway');
+    giveawayHandler(client);
+    console.log('\x1b[36m[ AUTOROLE ]\x1b[0m', '\x1b[32mAutorole System Active ✅\x1b[0m');
+    const autoroleHandler = require('./events/autorole');
+    autoroleHandler(client);
+    console.log('\x1b[36m[ REACTION ROLES ]\x1b[0m', '\x1b[32mReaction Roles System Active ✅\x1b[0m');
+    const reactionRoleHandler = require('./events/reactionroles');
+    reactionRoleHandler(client);
+    const nqnHandler = require('./events/nqn');
+    nqnHandler(client);
+    const emojiHandler = require('./events/emojiHandler');
+    console.log('\x1b[36m[ NQN Module ]\x1b[0m', '\x1b[32mEmoji System Active ✅\x1b[0m');
+    emojiHandler(client);
+    require('./events/music')(client);
+    require('./shiva');
+};
 
-client.once('ready', () => {
-    console.log('Bot is online!');
-});
 
-// Command handler for multiple commands
-client.on('messageCreate', message => {
-    if (!message.content.startsWith('!') || message.author.bot) return;
-
-    const args = message.content.slice(1).split(' ');
-    const command = args.shift().toLowerCase();
-
-    switch (command) {
-        case 'ping':
-            message.channel.send('Pong!');
-            break;
-        case 'kick':
-            if (!message.member.permissions.has('KICK_MEMBERS')) return;
-            const userToKick = message.mentions.users.first();
-            if (userToKick) {
-                const member = message.guild.members.resolve(userToKick);
-                member.kick().then(() => {
-                    message.channel.send(`${userToKick.tag} was kicked.`);
-                }).catch(err => {
-                    message.channel.send('I cannot kick this user.');
-                    console.error(err);
-                });
-            } else {
-                message.channel.send('You need to mention a user to kick.');
-            }
-            break;
-        case 'weather':
-            if (!args.length) {
-                return message.channel.send('Please provide a city name.');
-            }
-            const city = args.join(' ');
-            getWeather(city).then(response => {
-                message.channel.send(`The weather in ${city}: ${response.data.weather[0].description}, Temperature: ${response.data.main.temp}°C`);
-            }).catch(error => {
-                message.channel.send('Unable to get weather data.');
-            });
-            break;
-        case 'help':
-            message.channel.send(`Available commands:
-            - !ping: Test the bot
-            - !kick @user: Kick a mentioned user
-            - !weather city_name: Get the current weather in a city`);
-            break;
-        default:
-            message.channel.send('Unknown command. Type `!help` for available commands.');
-    }
-});
-
-// Function to get weather data from OpenWeatherMap API
-async function getWeather(city) {
-    const apiKey = process.env.WEATHER_API_KEY; // Use environment variable for API key
-    const url = `http://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${apiKey}`;
-    return axios.get(url);
-}
-
-// Log in to Discord using the bot token from the environment variable
-client.login(process.env.BOT_TOKEN); // Use environment variable for bot token
+loadEventHandlers();
